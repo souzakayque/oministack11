@@ -1,10 +1,21 @@
 import React from 'react';
-import { View, Image, Text, TouchableOpacity } from 'react-native';
+import { Feather } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
+import { View, FlatList, Image, Text, TouchableOpacity } from 'react-native';
+
 
 import logoImg from '../../assets/logo.png';
 import styles from './styles';
 
 export default function Incidents() {
+
+    const navigation = useNavigation();
+
+    function navigateToDetail() {
+
+        navigation.navigate('Detail');
+
+    }
 
     return (
 
@@ -24,27 +35,34 @@ export default function Incidents() {
             <Text style={ styles.title }>Bem-vindo!</Text>
             <Text style={ styles.description }>Escolha um dos casos abaixo e salve o dia.</Text>
 
-            <View style={ styles.incidentsList }>
-                <View style={ styles.incident }>
+            <FlatList 
+                data={[1, 2, 3]}
+                style={ styles.incidentsList }
+                keyExtractor={ incident => String(incident) }
+                showsVerticalScrollIndicator={ false }
+                renderItem={() => (
+                    <View style={ styles.incident }>
 
-                    <Text style={ styles.incidentProperty }>ONG:</Text>
-                    <Text style={ styles.incidentValue }>APAD</Text>
-                    
-                    <Text style={ styles.incidentProperty }>CASO:</Text>
-                    <Text style={ styles.incidentValue }>Cadelinha atropelada</Text>
+                        <Text style={ styles.incidentProperty }>ONG:</Text>
+                        <Text style={ styles.incidentValue }>APAD</Text>
 
-                    <Text style={ styles.incidentProperty }>VALOR:</Text>
-                    <Text style={ styles.incidentValue }>R$ 120,00:</Text>
+                        <Text style={ styles.incidentProperty }>CASO:</Text>
+                        <Text style={ styles.incidentValue }>Cadelinha atropelada</Text>
 
-                    <TouchableOpacity 
-                        style={ styles.detailsButton }
-                        onPress={ () => {} }
-                    >
-                        <Text style={ styles.details }>Ver mais detalhes</Text>
-                    </TouchableOpacity>
+                        <Text style={ styles.incidentProperty }>VALOR:</Text>
+                        <Text style={ styles.incidentValue }>R$ 120,00:</Text>
 
-                </View>
-            </View>
+                        <TouchableOpacity 
+                            style={ styles.detailsButton }
+                            onPress={ navigateToDetail }
+                        >
+                            <Text style={ styles.details }>Ver mais detalhes</Text>
+                            <Feather name="arrow-right" size={ 16 } color="#e02041"/>
+                        </TouchableOpacity>
+
+                    </View>
+                )}
+            />
 
         </View>
 
